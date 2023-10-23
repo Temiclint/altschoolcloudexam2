@@ -32,5 +32,5 @@
     command: chmod +x ~/slavefile.sh
 
   - name: Run Bash Script
-    command: bash slavefile.sh dire direpass < /dev/null 
+    command: bash ~/slavefile.sh dire direpass < /dev/null 
 

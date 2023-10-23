@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt update
+sudo apt update -y < /dev/null
 sudo apt upgrade -y < /dev/null
 
 
@@ -25,8 +25,8 @@ composer --version < /dev/null
 
 cat << EOF > /etc/apache2/sites-available/laravel.conf
 <VirtualHost *:80>
-    ServerAdmin admin@example.com
-    ServerName 192.168.20.11
+    ServerAdmin info@direadelaja.com
+    ServerName 192.168.39.20
     DocumentRoot /var/www/html/laravel/public
 
     <Directory /var/www/html/laravel>
@@ -44,7 +44,7 @@ sudo a2enmod rewrite
 sudo a2ensite laravel.conf
 sudo systemctl restart apache2
 
-#clone a PHP application from GitHub
+#clone laravel form from GitHub
 sudo mkdir /var/www/html/laravel && cd /var/www/html/laravel
 cd /var/www/html && sudo git clone https://github.com/laravel/laravel.git
 cd /var/www/html/laravel && composer install --no-dev < /dev/null
@@ -57,7 +57,7 @@ php artisan key:generate
 
 # mysql configuration 
 
-echo "Creating MySQL user and database"
+echo " MySQL"
 PASS=$2
 if [ -z "$2" ]; then
   PASS=`openssl rand -base64 8`
@@ -78,8 +78,8 @@ echo "Password:   $PASS"
 
 # keygen
 
-sudo sed -i 's/DB_DATABASE=laravel/DB_DATABASE=teddi/' /var/www/html/laravel/.env
-sudo sed -i 's/DB_USERNAME=root/DB_USERNAME=teddi/' /var/www/html/laravel/.env
-sudo sed -i 's/DB_PASSWORD=/DB_PASSWORD=teddi90/' /var/www/html/laravel/.env
+sudo sed -i 's/DB_DATABASE=laravel/DB_DATABASE=dire/' /var/www/html/laravel/.env
+sudo sed -i 's/DB_USERNAME=root/DB_USERNAME=dire/' /var/www/html/laravel/.env
+sudo sed -i 's/DB_PASSWORD=/DB_PASSWORD=direpass/' /var/www/html/laravel/.env
 php artisan config:cache
 cd /var/www/html/laravel && php artisan migrate
